@@ -3,6 +3,7 @@ import sqlite3
 connection = sqlite3.connect("not_telegram.db")
 cursor = connection.cursor()
 
+cursor.execute(" DROP TABLE IF EXISTS Users")
 #обращаемся к базе данных
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Users(
@@ -16,15 +17,15 @@ balance INTEGER NOT NULL
 i=1
 age_= 0
 #ЗАПОЛНЯЕМ 10-Ю ЗАПИСЯМИ
-#for i in range(1, 11):
-    #age_ += 10
-    #cursor.execute(" INSERT INTO Users (username, email, age, balance) VALUES (?, ?, ?, ?)",
-                  #(f"User{i}", f"example{i}@gmail.com", f"{age_}", "1000"))
+for i in range(1, 11):
+    age_ += 10
+    cursor.execute(" INSERT INTO Users (username, email, age, balance) VALUES (?, ?, ?, ?)",
+                  (f"User{i}", f"example{i}@gmail.com", f"{age_}", "1000"))
 #обновить баланс
-#cursor.execute(" UPDATE Users SET balance = 500 WHERE id % 2 != 0")
+cursor.execute(" UPDATE Users SET balance = 500 WHERE id % 2 != 0")
 
 #delete
-#cursor.execute(" DELETE FROM Users WHERE id IN (1, 4, 7, 10)")
+cursor.execute(" DELETE FROM Users WHERE (id + 2) % 3 = 0")
 
 #cursor.execute(" DROP TABLE Users")
 
